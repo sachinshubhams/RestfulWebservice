@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- origin at X=0.0 Y=0.0 -->
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xs="http://www.w3.org/2001/XMLSchema" id="Definitions_1" exporter="org.eclipse.bpmn2.modeler.core" exporterVersion="1.5.0.Final-v20180515-1642-B1" targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:itemDefinition id="ItemDefinition_18" isCollection="false" structureRef="xs:boolean"/>
+  <bpmn:process id="CamundaDemoApp" name="CamundaDemoApp" isExecutable="true">
+    <bpmn:startEvent id="StartEventProcessStarted" name="Process&#xA;started">
+      <bpmn:outgoing>SequenceFlow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEventProcessEnded" name="Process&#xA;ended">
+      <bpmn:incoming>SequenceFlow1</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow1" sourceRef="ExclusiveGateway_1" targetRef="EndEventProcessEnded"/>
+    <bpmn:sequenceFlow id="SequenceFlow_1" sourceRef="StartEventProcessStarted" targetRef="ServiceTask_1"/>
+    <bpmn:serviceTask id="ServiceTask_1" name="Check Weather">
+      <bpmn:incoming>SequenceFlow_1</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1" name="Is the weather is ok?" gatewayDirection="Diverging" default="SequenceFlow1">
+      <bpmn:incoming>SequenceFlow_2</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow1</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_16</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_2" sourceRef="ServiceTask_1" targetRef="ExclusiveGateway_1"/>
+    <bpmn:serviceTask id="ServiceTask_8" name="Print Complain about weather" implementation="##WebService">
+      <bpmn:incoming>SequenceFlow_16</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_17</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_16" sourceRef="ExclusiveGateway_1" targetRef="ServiceTask_8"/>
+    <bpmn:endEvent id="EndEvent_6" name="End Event 6">
+      <bpmn:incoming>SequenceFlow_17</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_17" sourceRef="ServiceTask_8" targetRef="EndEvent_6"/>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="CamundaDemoApp">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEventProcessStarted">
+        <dc:Bounds height="36.0" width="36.0" x="173.0" y="102.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_3" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="30.0" width="46.0" x="168.0" y="138.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0fkea3f_di" bpmnElement="EndEventProcessEnded">
+        <dc:Bounds height="36.0" width="36.0" x="556.0" y="102.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_1" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="30.0" width="46.0" x="551.0" y="138.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ServiceTask_1" bpmnElement="ServiceTask_1">
+        <dc:Bounds height="50.0" width="110.0" x="240.0" y="95.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_5" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="15.0" width="84.0" x="253.0" y="112.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ExclusiveGateway_1" bpmnElement="ExclusiveGateway_1" isMarkerVisible="true">
+        <dc:Bounds height="50.0" width="50.0" x="390.0" y="95.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_6" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="30.0" width="80.0" x="375.0" y="145.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ServiceTask_8" bpmnElement="ServiceTask_8" isExpanded="true">
+        <dc:Bounds height="50.0" width="110.0" x="460.0" y="10.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_28" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="30.0" width="88.0" x="471.0" y="20.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_6" bpmnElement="EndEvent_6">
+        <dc:Bounds height="36.0" width="36.0" x="638.0" y="17.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_30" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="15.0" width="65.0" x="624.0" y="53.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_08va5r8_di" bpmnElement="SequenceFlow1" sourceElement="BPMNShape_ExclusiveGateway_1" targetElement="EndEvent_0fkea3f_di">
+        <di:waypoint xsi:type="dc:Point" x="440.0" y="120.0"/>
+        <di:waypoint xsi:type="dc:Point" x="498.0" y="120.0"/>
+        <di:waypoint xsi:type="dc:Point" x="556.0" y="120.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_2"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="_BPMNShape_StartEvent_2" targetElement="BPMNShape_ServiceTask_1">
+        <di:waypoint xsi:type="dc:Point" x="209.0" y="120.0"/>
+        <di:waypoint xsi:type="dc:Point" x="224.0" y="120.0"/>
+        <di:waypoint xsi:type="dc:Point" x="240.0" y="120.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_4"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_ServiceTask_1" targetElement="BPMNShape_ExclusiveGateway_1">
+        <di:waypoint xsi:type="dc:Point" x="350.0" y="120.0"/>
+        <di:waypoint xsi:type="dc:Point" x="370.0" y="120.0"/>
+        <di:waypoint xsi:type="dc:Point" x="390.0" y="120.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_7"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_16" bpmnElement="SequenceFlow_16" sourceElement="BPMNShape_ExclusiveGateway_1" targetElement="BPMNShape_ServiceTask_8">
+        <di:waypoint xsi:type="dc:Point" x="415.0" y="95.0"/>
+        <di:waypoint xsi:type="dc:Point" x="415.0" y="35.0"/>
+        <di:waypoint xsi:type="dc:Point" x="460.0" y="35.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_29"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_17" bpmnElement="SequenceFlow_17" sourceElement="BPMNShape_ServiceTask_8" targetElement="BPMNShape_EndEvent_6">
+        <di:waypoint xsi:type="dc:Point" x="570.0" y="35.0"/>
+        <di:waypoint xsi:type="dc:Point" x="604.0" y="35.0"/>
+        <di:waypoint xsi:type="dc:Point" x="638.0" y="35.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_31"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+    <bpmndi:BPMNLabelStyle id="BPMNLabelStyle_1">
+      <dc:Font name="arial" size="9.0"/>
+    </bpmndi:BPMNLabelStyle>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
